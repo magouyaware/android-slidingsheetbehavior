@@ -56,3 +56,8 @@ Sample (bare bones) Layout for two sliding sheets:
           sheet:behavior_slideEdge="right">
 </android.support.design.widget.CoordinatorLayout>    
 ```
+
+### Next Steps
+1. Need more thorough testing of sheets with nested scrolling views
+2. Publish library to jcenter
+3. Create Xamarin bindings and nuget package (help would be appreciated)
