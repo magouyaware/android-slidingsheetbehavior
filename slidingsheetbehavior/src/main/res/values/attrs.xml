@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlidingSheetBehavior_Layout">
+        <attr name="behavior_peekSize" format="dimension" />
+        <attr name="behavior_skipCollapsed" format="boolean" />
+        <attr name="behavior_hideable" format="boolean" />
+        <attr name="behavior_enableEdgeDrag" format="boolean" />
+        <attr name="behavior_slideEdge" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

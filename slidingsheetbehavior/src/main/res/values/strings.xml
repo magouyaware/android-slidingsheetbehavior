@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SlidingSheetBehavior</string>
+    <string name="sliding_sheet_behavior" translatable="false">com.magouyaware.slidingsheetbehavior.behavior.SlidingSheetBehavior</string>
+</resources>
