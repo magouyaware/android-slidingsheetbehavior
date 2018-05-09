@@ -1,5 +1,5 @@
 # SlidingSheetBehavior
-_A supercharged port of Android's BottomsheetBehavior, with additional features like sliding from any edge,  edge tracking, and ViewPager support._
+_A supercharged port/fork of Android's BottomsheetBehavior, with additional features like sliding from any edge,  edge tracking, and ViewPager support._
 
 ### Background _(Why SlidingSheetBehavior)_
 When Google introduced layout behaviors, they seemed really cool, but also a bit complex.  Thankfully, they created a few layout behaviors 
@@ -58,6 +58,8 @@ Sample (bare bones) Layout for two sliding sheets:
 ```
 
 ### Next Steps
+1. Create more robust sample app, to show various use cases
 1. Need more thorough testing of sheets with nested scrolling views
-2. Publish library to jcenter
-3. Create Xamarin bindings and nuget package (help would be appreciated)
+1. Update Readme with gifs to show functionality
+1. Publish library to jcenter
+1. Create Xamarin bindings and nuget package (help would be appreciated)
