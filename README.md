@@ -16,13 +16,16 @@ I found a great tool ([ViewPagerBottomSheet](https://github.com/laenger/ViewPage
 An idea formed in my mind, and I devised a plan to help me learn more about layout behaviors _and_ solve my BottomSheetBehavior woes...   SlidingSheetLayout was born.  I started with the [source](https://android.googlesource.com/platform/frameworks/support.git/+/master/design/src/android/support/design/widget/BottomSheetBehavior.java) for BottomSheetLayout, pulled in support for ViewPagers (props to [ViewPagerBottomSheet](https://github.com/laenger/ViewPagerBottomSheet) from [laenger's](https://github.com/laenger)), and added the additional features that I wanted/needed.
 
 ### Usage
-See the example app source for full examples of how to use SlidingSheetBehavior, but it is _mostly_ (though not completely) a drop-in replacement for BottomSheetBehavior.
+See the example app source for full examples of how to use SlidingSheetBehavior, but it is _mostly_ (though not completely) a drop-in replacement for BottomSheetBehavior.  Get started in three easy steps:
 
-- First, make sure you define your custom namespace in your layout file: `xmlns:sheet="http://schemas.android.com/apk/res-auto"`
-- Second, create your layout as you normally would: 
-  - The parent of your sheet must be a [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout)
-  - Tell your sheet that it is going to be a sliding sheet: `sheet:layout_behavior="@string/sliding_sheet_behavior"`
-  - Set up additional properties for your sliding sheet:
+1. Make sure you define your custom namespace in your layout file: 
+    ```
+    xmlns:sheet="http://schemas.android.com/apk/res-auto"
+    ```
+2. Create your layout as you normally would: 
+    * The parent of your sheet must be a [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout)
+    * Tell your sheet that it is going to be a sliding sheet: `sheet:layout_behavior="@string/sliding_sheet_behavior"`
+3. Set up additional properties for your sliding sheet:
     ```html
     sheet:behavior_hideable="true|false" <!-- Default: false --> 
     sheet:behavior_peekSize="100dp" <!-- Omit for auto peek size: Inverted 16:9 ratio of parent's height -->
@@ -31,7 +34,7 @@ See the example app source for full examples of how to use SlidingSheetBehavior,
     sheet:behavior_skipCollapsed="true|false" <!-- Default: false --> 
     ```
 
-Sample (bare bones) Layout for two sliding sheets:
+Sample (bare bones) Layout for two sliding sheets: 
 ```xml
 <android.support.design.widget.CoordinatorLayout
       xmlns:android="http://schemas.android.com/apk/res/android"
