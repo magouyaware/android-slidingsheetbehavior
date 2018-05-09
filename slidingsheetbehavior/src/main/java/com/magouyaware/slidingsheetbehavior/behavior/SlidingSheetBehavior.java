@@ -691,9 +691,8 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
         // I didn't like the original implementation for calculating an auto peek size. In certain
         // situations (like when in landscape mode) the calculated value would be negative and then
         // default to the min, so I created my own...
-        // The 16:9 ratio of the difference between the parent's height and width.
-        int sizeDiff = Math.abs(parent.getHeight() - parent.getWidth());
-        int peekSize = sizeDiff * 9 / 16;
+        int parentSize = getViewSize(parent);
+        int peekSize = parentSize - (parentSize * 9 / 16);
 
         //Make sure the peek is not larger than the child
         int childSize = getViewSize(child);
