@@ -11,5 +11,10 @@
             <enum name="top" value="3" />
             <enum name="bottom" value="4" />
         </attr>
+        <attr name="behavior_startState" format="enum">
+            <enum name="expanded" value="3" />
+            <enum name="collapsed" value="4" />
+            <enum name="hidden" value="5" />
+        </attr>
     </declare-styleable>
 </resources>

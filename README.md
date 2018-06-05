@@ -32,6 +32,7 @@ See the example app source for full examples of how to use SlidingSheetBehavior,
     sheet:behavior_slideEdge="left|right|top|bottom" <!-- Default: bottom --> 
     sheet:behavior_enableEdgeDrag="true|false" <!-- Default: false --> 
     sheet:behavior_skipCollapsed="true|false" <!-- Default: false --> 
+    sheet:behavior_startState="collapsed|expanded|hidden" <!-- Default: collapsed -->
     ```
 
 Sample (bare bones) Layout for two sliding sheets: 

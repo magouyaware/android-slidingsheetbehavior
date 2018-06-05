@@ -78,8 +78,8 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
 
     //TODO: Come up with a better name for m_slideIsReversed.
     //      Since this is based on Google's BottomSheetBehavior class, this value would be true for
-    //      sliding from the top.  The calculations are the same for bottom and right edges, so this
-    //      is also true when sliding from the left edge.
+    //      sliding from the top.  The calculations are the "same" for bottom and right edges, so this
+    //      value is also true when sliding from the left edge.
     private boolean m_slideIsReversed;
     private boolean m_slideIsVertical;
     private boolean m_edgeDragEnabled;
@@ -112,7 +112,7 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
      * peek size, is not hideable, does not skip collapsed state, and doesn't use edge dragging. To
      * change these values use the appropriate setter methods.
      */
-    public SlidingSheetBehavior(Context context, SlideEdge edge)
+    public SlidingSheetBehavior(Context context, SlideEdge edge, SlideState startState)
     {
         initializeInternalState(context);
         setPeekSize(PEEK_SIZE_AUTO);
@@ -120,6 +120,7 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
         setSkipCollapsed(false);
         enableEdgeDrag(false);
         setSlideEdge(edge);
+        m_state = startState;
     }
 
     /**
@@ -147,7 +148,10 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
 
         int slideEdge = array.getInt(R.styleable.SlidingSheetBehavior_Layout_behavior_slideEdge, SlideEdge.Bottom.getDragEdge());
         setSlideEdge(SlideEdge.fromIntValue(slideEdge));
-        
+
+        int startState = array.getInt(R.styleable.SlidingSheetBehavior_Layout_behavior_startState, SlideState.Collapsed.getIntValue());
+        m_state = SlideState.fromIntValue(startState);
+
         array.recycle();
     }
 
@@ -159,12 +163,26 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
         m_peekSizeMin = context.getResources().getDimensionPixelSize(R.dimen.slidingsheet_min_peek_size);
     }
 
+    /**
+     * Saves the current state of this behavior.  This method must be called from an Activity or
+     * Fragment's onSaveInstanceState() method.
+     * @param parent The parent layout
+     * @param child The sheet
+     * @return A parcelable with the saved state
+     */
     @Override
     public Parcelable onSaveInstanceState(CoordinatorLayout parent, V child)
     {
         return new SavedState(super.onSaveInstanceState(parent, child), m_state);
     }
 
+    /**
+     * Restores the state of this behavior.  This method must be called from an Activity or Fragment's
+     * onRestoreInstanceState() method.
+     * @param parent The parent layout
+     * @param child The sheet
+     * @param state The saved state to be restored
+     */
     @Override
     public void onRestoreInstanceState(CoordinatorLayout parent, V child, Parcelable state)
     {
@@ -642,7 +660,9 @@ public class SlidingSheetBehavior<V extends View> extends CoordinatorLayout.Beha
     private void enableEdgeDragInternal(boolean enabled)
     {
         if (m_viewDragHelper != null)
+        {
             m_viewDragHelper.setEdgeTrackingEnabled(enabled ? m_slideEdge.getDragEdge() : NO_EDGE_DRAG);
+        }
     }
 
     private V getChild()
