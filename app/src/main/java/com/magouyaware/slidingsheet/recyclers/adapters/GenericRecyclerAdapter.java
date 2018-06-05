@@ -1,4 +1,4 @@
-package com.magouyaware.slidingsheet.recyclers;
+package com.magouyaware.slidingsheet.recyclers.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -3,7 +3,7 @@ package com.magouyaware.slidingsheet.recyclers.viewholders;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.magouyaware.slidingsheet.recyclers.GenericRecyclerAdapter;
+import com.magouyaware.slidingsheet.recyclers.adapters.GenericRecyclerAdapter;
 
 /**
  * Created by Justin Anderson on 10/24/2017.

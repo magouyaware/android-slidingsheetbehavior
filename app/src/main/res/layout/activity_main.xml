@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccent"
     tools:context="com.magouyaware.slidingsheet.MainActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/AppBar"
@@ -20,40 +21,54 @@
             sheet:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/sliding_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="15dp"
         android:layout_below="@id/AppBar"
         android:background="@android:color/white">
         <FrameLayout
-            android:id="@+id/left_slider"
+            android:id="@+id/left_sheet"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:background="@android:color/holo_blue_dark"
             sheet:layout_behavior="@string/sliding_sheet_behavior"
-            sheet:behavior_hideable="true"
-            sheet:behavior_peekSize="100dp"
+            sheet:behavior_peekSize="50dp"
             sheet:behavior_slideEdge="left"
-            sheet:behavior_enableEdgeDrag="true"
-            sheet:behavior_skipCollapsed="false">
-        </FrameLayout>
-        <LinearLayout
-            android:id="@+id/right_slide"
-            android:layout_width="match_parent"
+            sheet:behavior_hideable="true"
+            sheet:behavior_enableEdgeDrag="true" />
+        <FrameLayout
+            android:id="@+id/right_sheet"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:elevation="4dp"
             android:background="@android:color/holo_green_dark"
             sheet:layout_behavior="@string/sliding_sheet_behavior"
+            sheet:behavior_peekSize="50dp"
+            sheet:behavior_slideEdge="right"
             sheet:behavior_hideable="true"
+            sheet:behavior_enableEdgeDrag="true"/>
+        <FrameLayout
+            android:id="@+id/top_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:background="@android:color/holo_orange_dark"
+            sheet:layout_behavior="@string/sliding_sheet_behavior"
+            sheet:behavior_peekSize="50dp"
+            sheet:behavior_slideEdge="top"
+            sheet:behavior_hideable="true"/>
+        <FrameLayout
+            android:id="@+id/bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:background="@android:color/holo_red_dark"
+            sheet:layout_behavior="@string/sliding_sheet_behavior"
+            sheet:behavior_peekSize="50dp"
             sheet:behavior_slideEdge="bottom"
-            sheet:behavior_enableEdgeDrag="true"
-            sheet:behavior_skipCollapsed="false">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycled_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorAccent"
-                android:visibility="visible"/>
-        </LinearLayout>
+            sheet:behavior_hideable="true"
+            sheet:behavior_startState="expanded"/>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

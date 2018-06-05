@@ -1,6 +1,8 @@
 package com.magouyaware.slidingsheet;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,78 +10,89 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.magouyaware.slidingsheet.recyclers.GenericRecyclerAdapter;
+import com.magouyaware.slidingsheet.recyclers.adapters.GenericRecyclerAdapter;
 import com.magouyaware.slidingsheet.recyclers.inflaters.IRecyclerViewInflater;
 import com.magouyaware.slidingsheet.recyclers.viewholders.GenericViewHolder;
+import com.magouyaware.slidingsheetbehavior.behavior.SlidingSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
+    private static final String LEFT_SHEET_STATE_TAG = "LeftSheetState";
+    private static final String RIGHT_SHEET_STATE_TAG = "RightSheetState";
+    private static final String TOP_SHEET_STATE_TAG = "TopSheetState";
+    private static final String BOTTOM_SHEET_STATE_TAG = "BottomSheetState";
+
+    private CoordinatorLayout m_sheetParent;
+    private FrameLayout m_leftSheet, m_rightSheet, m_topSheet, m_bottomSheet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recycler = findViewById(R.id.recycled_list);
-        if (recycler != null)
-        {
-            GenericRecyclerAdapter<String> adapter = new GenericRecyclerAdapter<>(new IRecyclerViewInflater<String>()
-            {
-                @Override
-                public View onCreateView(ViewGroup parent, int viewType)
-                {
-                    return LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-                }
-
-                @Override
-                public int getItemViewType(int position, GenericRecyclerAdapter<String> adapter)
-                {
-                    return 0;
-                }
-
-                @Override
-                public GenericViewHolder<String> newViewHolder(View newView, int viewType, GenericRecyclerAdapter<String> adapter)
-                {
-                    return new TextViewHolder(newView);
-                }
-            });
-
-            adapter.addItems(getItems(), false);
-
-            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            recycler.setAdapter(adapter);
-        }
+        m_sheetParent = findViewById(R.id.sliding_container);
+        m_leftSheet = findViewById(R.id.left_sheet);
+        m_rightSheet = findViewById(R.id.right_sheet);
+        m_topSheet = findViewById(R.id.top_sheet);
+        m_bottomSheet = findViewById(R.id.bottom_sheet);
     }
 
-    private List<String> getItems()
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
     {
-        List<String> items = new ArrayList<>();
-        for (int i = 0; i < 50; i++)
-            items.add("Item ");
+        if (outState != null)
+        {
+            saveSheetState(m_leftSheet, LEFT_SHEET_STATE_TAG, outState);
+            saveSheetState(m_rightSheet, RIGHT_SHEET_STATE_TAG, outState);
+            saveSheetState(m_topSheet, TOP_SHEET_STATE_TAG, outState);
+            saveSheetState(m_bottomSheet, BOTTOM_SHEET_STATE_TAG, outState);
+        }
 
-        return items;
+        super.onSaveInstanceState(outState);
     }
 
-    public class TextViewHolder extends GenericViewHolder<String>
+    @Override
+    protected void onRestoreInstanceState(Bundle savedState)
     {
-
-        public TextViewHolder(View itemView)
+        if (savedState != null)
         {
-            super(itemView);
+            restoreSheetState(m_leftSheet, LEFT_SHEET_STATE_TAG, savedState);
+            restoreSheetState(m_rightSheet, RIGHT_SHEET_STATE_TAG, savedState);
+            restoreSheetState(m_topSheet, TOP_SHEET_STATE_TAG, savedState);
+            restoreSheetState(m_bottomSheet, BOTTOM_SHEET_STATE_TAG, savedState);
         }
 
-        @Override
-        public void bindData(GenericRecyclerAdapter<String> adapter, int position)
-        {
-            ((TextView)itemView).setText(adapter.getItem(position) + position);
-        }
+        super.onRestoreInstanceState(savedState);
     }
 
+    private void saveSheetState(View sheet, String tag, Bundle outState)
+    {
+        SlidingSheetBehavior<View> behavior = SlidingSheetBehavior.from(sheet);
+        if (behavior == null)
+            return;
+
+        Parcelable state = behavior.onSaveInstanceState(m_sheetParent, sheet);
+        outState.putParcelable(tag, state);
+    }
+
+    private void restoreSheetState(View sheet, String tag, Bundle savedState)
+    {
+        Parcelable state = savedState.getParcelable(tag);
+        if (state == null)
+            return;
+
+        SlidingSheetBehavior<View> behavior = SlidingSheetBehavior.from(sheet);
+        if (behavior != null)
+            behavior.onRestoreInstanceState(m_sheetParent, sheet, state);
+    }
 }

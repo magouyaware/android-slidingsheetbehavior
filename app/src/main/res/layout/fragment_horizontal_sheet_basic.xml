@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sheet="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/left_sheet_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/arrow_left_48dp"/>
+        <TextView
+            android:id="@+id/left_sheet_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="55dp"
+            android:layout_toEndOf="@id/left_sheet_arrow"
+            android:layout_alignTop="@id/left_sheet_arrow"
+            android:text="Slide open the hidden sheet by dragging from the edge of the screen"/>
+    </RelativeLayout>
+
+    <!-- ########################## -->
+    <!-- ##  LEFT SLIDING SHEET  ## -->
+    <!-- ########################## -->
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_default"
+        android:background="@android:color/holo_blue_dark"
+        android:elevation="4dp"
+        sheet:layout_behavior="@string/sliding_sheet_behavior"
+        sheet:behavior_slideEdge="left"
+        sheet:behavior_hideable="true"
+        sheet:behavior_skipCollapsed="true"
+        sheet:behavior_enableEdgeDrag="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="This sheet supports edge dragging. It can be opened by the user even when it is fully hidden"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_default"
+            android:text="This sheet is a LinearLayout, but any View or ViewGroup can be used as a sliding sheet."/>
+    </LinearLayout>
+
+    <!-- ########################### -->
+    <!-- ##  RIGHT SLIDING SHEET  ## -->
+    <!-- ########################### -->
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_green_dark"
+        sheet:layout_behavior="@string/sliding_sheet_behavior"
+        sheet:behavior_peekSize="50dp"
+        sheet:behavior_slideEdge="right"
+        sheet:behavior_hideable="true"
+        sheet:behavior_enableEdgeDrag="true"/>
+</android.support.design.widget.CoordinatorLayout>
